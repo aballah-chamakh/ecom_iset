@@ -1,0 +1,114 @@
+{% extends 'homebase.html.twig' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+{% block keywords %}{{ product.keywords }}{% endblock %}
+{% block description %}{{ product.description }}{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="recommended_items">
+                        <h2 class="title text-center">Product Gallery</h2>
+
+                        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+
+                                <div class="item active">
+                                        <div class="col-sm-4">
+                                            <div class="product-image-wrapper">
+                                                <div class="single-products">
+                                                    <div class="productinfo text-center">
+                                                        <a href="{{ path('product_show', {'id': product.id}) }} " class="btn btn-default add-to-cart">
+                                                            <img src="{{ asset('uploads/images/' ~ product.image) }}" alt="" style="height: 268px; width: 160px;" alt="" />
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% for rs in images %}
+                                        <div class="col-sm-4">
+                                            <div class="product-image-wrapper">
+                                                <div class="single-products">
+                                                    <div class="productinfo text-center">
+                                                        <a href="{{ path('product_show', {'id': rs.id}) }} " class="btn btn-default add-to-cart">
+                                                            <img src="{{ asset('uploads/images/' ~ rs.image) }}" alt="" style="height: 268px; width: 160px;" alt="" />
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-5 padding-right">
+                    <div class="left-sidebar">
+                        <div class="brands_products"><!--brands_products-->
+                            <h2>{{ product.title }}</h2>
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ product.description }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Price</th>
+                                    <td>{{ product.price }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <form name="shopcart" class="form-horizontal qtyFrm" action="{{ path('shopcart_new') }}" method="post">
+                            <div class="control-group">
+                                <div class="controls">
+                                   Qty:
+                                    <input  class="form-control" type="number" name="shopcart[Q]" class="span6" value="1" placeholder="Qty">
+                                    <input type="hidden" name="shopcart[ID]" value="{{ product.id }}">
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="token" value="{{ csrf_token('add-item') }}">
+                            <br/>
+                                <button style="width:100%" type="submit" class="btn btn-default add-to-cart"><span class="fa fa-shopping-cart"></span> Add to cart</button>
+
+                        </form>
+                        {% else %}
+                                <a style="width:100%" href="{{path('login_user')}}" class="btn btn-default add-to-cart"><span class="fa fa-shopping-cart"></span> Add to cart</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-tab shop-details-tab"><!--category-tab-->
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#companyprofile" data-toggle="tab">Product Detail Information</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+
+                    <div class="tab-pane fade active in" id="companyprofile">
+                        <div class="col-sm-12">
+                            <p> {{ product.detail |raw }}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

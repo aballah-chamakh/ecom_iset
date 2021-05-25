@@ -1,0 +1,41 @@
+{{ form_start(form) }}
+    {{ form_row(form.title,{label:'Title',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.keywords,{label:'Keywords',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.description,{label:'Description',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.company,{label:'Comapny',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.address,{label:'Address',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.phone,{label:'Phone',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.fax,{label:'Fax',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.email,{label:'Email',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.smtpserver,{label:'Smtpserver',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.smtpemail,{label:'Smtp Email',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.smtppassword,{label:'Smt Password',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.smtpport,{label:'Smtpport',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.facebook,{label:'Facebook',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.instagram,{label:'Instagram',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.twitter,{label:'Twitter',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.aboutus,{label:'About Us',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.contact,{label:'Contact',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.reference,{label:'Reference',attr:{class:'form-control'}}) }}
+    <br/>
+    {{ form_row(form.status,{label:'Status',attr:{class:'form-control'}}) }}
+    <br/>
+    <button style="width:100% ;" class="btn btn-info btn-info">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
