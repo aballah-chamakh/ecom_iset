@@ -13,6 +13,7 @@ use App\Repository\ImageRepository;
 use App\Repository\ProductRepository;
 use App\Repository\SettingRepository;
 use App\Repository\UserRepository;
+use App\Repository\ShopcartRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,18 +23,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index(SettingRepository $settingRepository, ProductRepository $productRepository)
+    public function index(ShopcartRepository $shopcartRepository,SettingRepository $settingRepository, ProductRepository $productRepository)
     {
         $setting = $settingRepository->findBy(['id'=>1]);
         $slider = $productRepository->findBy([],['title'=>'ASC'],3);
         $product = $productRepository->findBy([],['title'=>'DESC'],6);
         $newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
-
+        $user = $this->getUser() ;
+        $shop_cart_count = 0 ;
+        if ($user){
+            $userid = $user->getid();
+            $shop_cart_count = count($shopcartRepository->getUserShopCart($userid));
+        }   
+        
         // array findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
         // dump($slider);
         // die();
@@ -43,22 +51,29 @@ class HomeController extends AbstractController
             'slider' => $slider,
             'product' => $product,
             'newproducts' => $newproducts,
+            'shop_cart_count' => $shop_cart_count
         ]);
     }
 
     /**
      * @Route("/product/{id}", name="product_show", methods={"GET"})
      */
-    public function show(Product $product, $id, ImageRepository $imageRepository, CommentRepository $commentRepository): Response
+    public function show(ShopcartRepository $shopcartRepository,Product $product, $id, ImageRepository $imageRepository, CommentRepository $commentRepository): Response
     {
         $images = $imageRepository->findBy(['product'=>$id]);
         $comments = $commentRepository->findBy(['productid'=>$id,'status'=>'True']);
-
+        $user = $this->getUser() ;
+        $shop_cart_count = 0 ;
+        if ($user){
+            $userid = $user->getid();
+            $shop_cart_count = count($shopcartRepository->getUserShopCart($userid));
+        }   
 
         return $this->render('home/productshow.html.twig', [
             'product' => $product,
             'images' => $images,
             'comments' => $comments,
+            'shop_cart_count' => $shop_cart_count
 
         ]);
     }

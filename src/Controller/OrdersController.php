@@ -42,7 +42,7 @@ class OrdersController extends AbstractController
         $user = $this->getUser(); // Calling login user data
         $userid = $user->getid();
         $total = $shopcartRepository->getUserShopCartTotal($userid); // Get total amount of user shopcart
-
+        $shop_cart_count = count($shopcartRepository->getUserShopCart($userid));
         $submittedToken = $request->request->get('token'); // get csrf token information
         if($this->isCsrfTokenValid('form-order', $submittedToken)){
             if ($form->isSubmitted()) {
@@ -84,7 +84,7 @@ class OrdersController extends AbstractController
                     ->setParameter('userid', $userid);
                 $query->execute();
                 $this->addFlash('success', 'Siparişleriniz Başarıyla Gerçekleştirilmiştir <br> Teşekkür ederiz');
-                return $this->redirectToRoute('orders_index');
+                return $this->redirectToRoute('home');
             }
 
 
@@ -93,6 +93,7 @@ class OrdersController extends AbstractController
             'order' => $orders,
             'total' => $total,
             'form' => $form->createView(),
+            'shop_cart_count' => $shop_cart_count
         ]);
     }
 

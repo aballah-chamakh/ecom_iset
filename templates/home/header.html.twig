@@ -33,43 +33,22 @@
                         <a href="/"><img src="{{asset('assets')}}/images/home/logo.png" alt="" /></a>
                     </div>
 
-                    <!--
-                    <div class="btn-group pull-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                USA
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canada</a></li>
-                                <li><a href="#">UK</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                DOLLAR
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canadian Dollar</a></li>
-                                <li><a href="#">Pound</a></li>
-                            </ul>
-                        </div>
-                    </div>-->
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href="/newuser"><i class="fa fa-user"></i> Register</a></li>
+                        <ul class="nav navbar-nav" style="display:flex;align-itens:center">
+                            
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li>
-                                    <a href="/user"><img src="{{asset('uploads/images/' ~ app.user.image)}}" style="height: 30px; border-radius: 40%"/>
+                                    <a href="/shopcart"><img src="{{asset('uploads/images/' ~ app.user.image)}}" style="height: 30px; border-radius: 40%"/>
                                         {{ app.user.name }} {{ app.user.surname }}
                                     </a>
                                 </li>
+
                                 <li><a href="/logout">Logout</a></li>
+                                <li style="position:relative"> <div style="padding:2px 6px;border-radius:50%;background-color:green;color:white;right:20px;top:-2px;z-index:5;position:absolute">{{shop_cart_count}}</div><a href="/shopcart"><i class="fa fa-shopping-cart" style="font-size:30px"></i></a><li>
                             {% else %}
+                                <li><a href="/newuser"><i class="fa fa-user"></i> Register</a></li>
                                 <li>
                                     <a href="/loginuser"><i class="fa fa-lock"></i> Login</a>
                                 </li>

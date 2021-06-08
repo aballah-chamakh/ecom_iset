@@ -39,10 +39,14 @@ class ShopcartController extends AbstractController
         $statement->bindValue(':userid', $user->getid());
         $statement->execute();
         $shopcart = $statement->fetchAll();
+        $user = $this->getUser() ;
+        $shop_cart_count = count($shopcart);
+        
         //dump($shopcart);
         //die();
         return $this->render('shopcart/index.html.twig', [
             'shopcarts' => $shopcart,
+            'shop_cart_count' => $shop_cart_count
         ]);
     }
     /**

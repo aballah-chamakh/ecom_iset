@@ -57,7 +57,7 @@ class ShopcartRepository extends ServiceEntityRepository
             WHERE s.productid = p.id and s.userid=:userid
             ')
                 ->setParameter('userid', $userid);
-            return $query->getResult();
+            return $query->getArrayResult();
         }
     
     

@@ -1,7 +1,6 @@
 {% extends 'homebase.html.twig' %}
 
 {% block title %} Shopcart{% endblock %}
-
 {% block body %}
     <section>
         <div class="container">
@@ -35,7 +34,7 @@
                                                     <td>{{ shopcart.id }}</td>
                                                     <td>{{ shopcart.title }}</td>
                                                     <td>{{ shopcart.price }}</td>
-                                                    <td>{{ shopcart.quantity }}</td>
+                                                    <td>{{shopcart.quantity}}</td>
                                                     <td>{{ shopcart.quantity * shopcart.price }}</td>
                                                     <td>
                                                         <a href="{{ path('shopcart_del', {'id': shopcart.id}) }}" onclick="return confirm('Are you sure ?');" class = "btn btn-danger">Delete</a>
@@ -62,5 +61,6 @@
                 </div>
             </div>
         </div>
+
     </section>
 {% endblock %}

@@ -27,11 +27,11 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/orders/{slug}", name="admin_orders_index")
+     * @Route("/orders", name="admin_orders_index")
      */
-    public function orders($slug, OrdersRepository $ordersRepository)
+    public function orders(OrdersRepository $ordersRepository)
     {
-        $orders = $ordersRepository->findBy(['status' => $slug]);
+        $orders = $ordersRepository->findAll(); //findBy(['status' => $slug]);
         return $this->render('admin/orders/index.html.twig', [
             'orders' => $orders,
         ]);
